@@ -1,3 +1,11 @@
+# VSCode Language Server Protocol - Folding Provider Extension (Proposed)
+
+This repository contains the documentation and APIs of the Folding Provider extension to the Language Server Protocol.
+
+- The [documentation](./protocol.foldingProvider.proposed.md) of the added request, types and capabilities. 
+- The [TypeScript APIs](./protocol.foldingProvider.proposed.ts) for consumption of clients and servers implemented in Typescript.
+
+This extensions is currently only *proposed* and not yet finalized. Please file comments and improvment suggestions [here](https://github.com/Microsoft/vscode-languageserver-protocol-foldingprovider/issues). 
 
 # Contributing
 
