@@ -24,7 +24,7 @@
     "scripts": {
         "prepublish": "npm run compile",
         "compile": "tsc -p .",
-        "preversion": "npm test",
+        "preversion": "npm run compile",
         "postversion": "git push && git push --tags"
     }
 }
