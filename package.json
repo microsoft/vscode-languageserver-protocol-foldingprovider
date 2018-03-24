@@ -11,8 +11,8 @@
     "bugs": {
         "url": "https://github.com/Microsoft/vscode-languageserver-protocol-foldingprovider/issues"
     },
-    "typings": "./lib/protocol-foldingProvider",
-    "main": "./lib/protocol-foldingProvider.js",
+    "typings": "./lib/protocol.foldingProvider",
+    "main": "./lib/protocol.foldingProvider.js",
     "dependencies": {
         "vscode-languageserver-types": "^3.6.0",
         "vscode-languageserver-protocol": "^3.6.0"
