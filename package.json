@@ -23,6 +23,8 @@
     },
     "scripts": {
         "prepublish": "npm run compile",
-        "compile": "tsc -p ."
+        "compile": "tsc -p .",
+        "preversion": "npm test",
+        "postversion": "git push && git push --tags"
     }
 }
