@@ -70,7 +70,7 @@ export interface FoldingRange {
 	startLine: number;
 
 	/**
-	 * The start column of the folding range. If not set, this defaults to the length of the line.
+	 * The start column of the folding range. If not set, this defaults to the length of the start line.
 	 */
 	startColumn?: number;
 
@@ -80,7 +80,7 @@ export interface FoldingRange {
 	endLine: number;
 
 	/**
-	 * The start column of the folding range. If not set, this defaults to 0.
+	 * The start column of the folding range. If not set, this defaults to the length of the end line.
 	 */
 	endColumn?: number;
 
