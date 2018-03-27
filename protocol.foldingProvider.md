@@ -99,7 +99,7 @@ export enum FoldingRangeType {
 export interface FoldingRange {
 
 	/**
-	 * The start line number of the folding range. The first line will stay visible, all folloing lines, including the end line will be folded.
+	 * The start line number of the folding range. The first line will stay visible, all following lines, including the end line will be folded.
 	 */
 	startLine: number;
 
