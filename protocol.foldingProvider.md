@@ -11,48 +11,48 @@ The server sets the following server capability if it is able to handle `textDoc
 /**
  * The server capabilities
  */
-export interface FoldingProviderServerCapabilities {
+export interface FoldingRangeServerCapabilities {
 	/**
 	 * The server provides folding provider support.
 	 */
-	foldingProvider?: FoldingProviderOptions | (FoldingProviderOptions & TextDocumentRegistrationOptions & StaticRegistrationOptions);
+	foldingRangeProvider?: FoldingRangeProviderOptions | (FoldingRangeProviderOptions & TextDocumentRegistrationOptions & StaticRegistrationOptions);
 }
 
-export interface FoldingProviderOptions {
+export interface FoldingRangeProviderOptions {
 }
-
 ```
 
 
 _Client Capability_:
 
-The client sets the following client capability if it is able to handle dynamic registration of foldingProvider
+The client sets the following client capability if it is able to support foldingRangeProviders.
 
 ```ts
-export interface FoldingProviderClientCapabilities {
+export interface FoldingRangeClientCapabilities {
 	/**
 	 * The text document client capabilities
 	 */
 	textDocument?: {
 		/**
-		 * Capabilities specific to the foldingProvider
+		 * Capabilities specific to `textDocument/foldingRange` requests
 		 */
-		foldingProvider?: {
+		foldingRange?: {
 			/**
-			 * Whether implementation supports dynamic registration. If this is set to `true`
-			 * the client supports the new `(FoldingProviderOptions & TextDocumentRegistrationOptions & StaticRegistrationOptions)`
+			 * Whether implementation supports dynamic registration for folding range providers. If this is set to `true`
+			 * the client supports the new `(FoldingRangeProviderOptions & TextDocumentRegistrationOptions & StaticRegistrationOptions)`
 			 * return value for the corresponding server capability as well.
 			 */
 			dynamicRegistration?: boolean;
 			/**
-			 * The maximum number of folding ranges that the client prefers to receive in a response. The value servces only a hint to improve performance, servers must not follow it.
+			 * The maximum number of folding ranges that the client prefers to receive per document. The value serves as a
+			 * hint, servers are free to follow the limit.
 			 */
-			maximumNumberOfRanges?: number;
+			rangeLimit?: number;
 			/**
 			 * If set, the client signals that it only supports folding complete lines. If set, client will
 			 * ignore specified `startCharacter` and `endCharacter` properties in a FoldingRange.
 			 */
-			completeLineFoldingOnly?: number;
+			lineFoldingOnly?: number;
 		};
 	};
 }
@@ -69,21 +69,18 @@ export interface FoldingRangeRequestParam {
 	 * The text document.
 	 */
 	textDocument: TextDocumentIdentifier;
-
 }
+
 ```
 
 _Response_:
-* result: `FoldingRangeList` defined as follows:
+* result: `FoldingRange[]` defined as follows:
 ```ts
-export interface FoldingRangeList {
-	/**
-	 * The folding ranges.
-	 */
-	ranges: FoldingRange[];
-}
 
-export enum FoldingRangeType {
+/**
+ * Enum of known range kinds
+ */
+export enum FoldingRangeKind {
 	/**
 	 * Folding range for a comment
 	 */
@@ -109,24 +106,26 @@ export interface FoldingRange {
 	startLine: number;
 
 	/**
-	 * The zero-based character from where the folded range starts. If not defined, defaults to the length of the start line.
+	 * The zero-based character offset from where the folded range starts. If not defined, defaults to the length of the start line.
 	 */
-	startColumn?: number;	
+	startCharacter?: number;
 
 	/**
-	 * The line number (0-based) where the foled range ends.
+	 * The zero-based line number where the folded range ends.
 	 */
 	endLine: number;
 
 	/**
-	 * The  zero-based character before the folded range ends. If not defined, defaults to the length of the end line.
+	 * The zero-based character offset before the folded range ends. If not defined, defaults to the length of the end line.
 	 */
-	endColumn?: number;	
+	endCharacter?: number;
 
 	/**
-	 * The type of folding range.
+	 * Describes the kind of the folding range such as `comment' or 'region'. The kind
+	 * is used to categorize folding ranges and used by commands like 'Fold all comments'. See
+	 * [FoldingRangeKind](#FoldingRangeKind) for an enumeration of standardized kinds.
 	 */
-	type?: FoldingRangeType | string;
+	kind?: string;
 }
 ```
 * error: code and message set in case an exception happens during the 'textDocument/foldingRanges' request
