@@ -44,6 +44,11 @@ export interface FoldingProviderClientCapabilities {
 			 * return value for the corresponding server capability as well.
 			 */
 			dynamicRegistration?: boolean;
+			/**
+			 * The maximum number of folding ranges that the client prefers to receive in a response. The value servces only a hint to improve performance, servers must not follow it.
+			 */
+			maximumNumberOfRanges?: number;
+			/**
 		};
 	};
 }
@@ -61,10 +66,6 @@ export interface FoldingRangeRequestParam {
 	 */
 	textDocument: TextDocumentIdentifier;
 
-	/**
-	 * The maximum number of ranges to provide
-	 */
-	maxRanges?: number;
 }
 ```
 
