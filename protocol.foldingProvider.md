@@ -49,6 +49,10 @@ export interface FoldingProviderClientCapabilities {
 			 */
 			maximumNumberOfRanges?: number;
 			/**
+			 * If set, the client signals that it only supports folding complete lines. If set, client will
+			 * ignore specified `startCharacter` and `endCharacter` properties in a FoldingRange.
+			 */
+			completeLineFoldingOnly?: number;
 		};
 	};
 }
@@ -100,14 +104,24 @@ export enum FoldingRangeType {
 export interface FoldingRange {
 
 	/**
-	 * The start line number of the folding range. The first line will stay visible, all folloing lines, including the end line will be folded.
+	 * The zero-based line number from where the folded range starts.
 	 */
 	startLine: number;
 
 	/**
-	 * The end line number. The last line will be hidden.
+	 * The zero-based character from where the folded range starts. If not defined, defaults to the length of the start line.
+	 */
+	startColumn?: number;	
+
+	/**
+	 * The line number (0-based) where the foled range ends.
 	 */
 	endLine: number;
+
+	/**
+	 * The  zero-based character before the folded range ends. If not defined, defaults to the length of the end line.
+	 */
+	endColumn?: number;	
 
 	/**
 	 * The type of folding range.
