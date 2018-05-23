@@ -44,7 +44,7 @@ export interface FoldingRangeServerCapabilities {
 	/**
 	 * The server provides folding provider support.
 	 */
-	foldingRangeProvider?: FoldingRangeProviderOptions | (FoldingRangeProviderOptions & TextDocumentRegistrationOptions & StaticRegistrationOptions);
+	foldingRangeProvider?: boolean | FoldingRangeProviderOptions | (FoldingRangeProviderOptions & TextDocumentRegistrationOptions & StaticRegistrationOptions);
 }
 
 /**
