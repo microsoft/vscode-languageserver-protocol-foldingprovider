@@ -74,7 +74,7 @@ export interface FoldingRangeRequestParam {
 ```
 
 _Response_:
-* result: `FoldingRange[]` defined as follows:
+* result: `FoldingRange[] | null` defined as follows:
 ```ts
 
 /**
